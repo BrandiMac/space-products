@@ -6,16 +6,16 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Example'
-copyright = 'workshop participant'
-author = 'workshop participant'
-release = '0.1'
+project = 'FreeFlyer'
+author = 'Brandi McPherson'
+release = 'v.1.0'
 
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser']
+extensions = ['myst_parser', 'sphinx.ext.autosectionlabel']
+
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
