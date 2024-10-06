@@ -2,13 +2,12 @@
 VisibilityCalculators
 #########################
 
-TODO <include blurb about what "visibility" means or "occulting bodies"?
+TODO include blurb about what "visibility" means or "occulting bodies" and rewrite this main intro.
 
-The :ref:`VisibilitySegment` object allows users to determine whether an observer can see a target, based on the
-user-specified configuration for occulting bodies, occulting terrain, celestial object shape models, and refraction.
-The :ref:`VisibilityCalculator` object allows users to work with multiple ``VisibilitySegments`` at once in order to
-determine
-whether ``any`` or ``all`` of the segments are simultaneously true.
+The :ref:`VisibilitySegment` object allows you to determine whether an observer can see a target, based on the
+your specified configuration for occulting bodies, occulting terrain, celestial object shape models, and refraction.
+The :ref:`VisibilityCalculator` object allows you to work with multiple ``VisibilitySegments`` at once in order to
+determine whether ``any`` or ``all`` of the segments are simultaneously true.
 
 
 .. contents:: Contents
@@ -47,7 +46,7 @@ target based on your specified configuration for occulting bodies, celestial obj
 Setting the Observer and Target
 ==================================
 Observer and target are required inputs for the :ref:`VisibilitySegment` object. The :ref:`VisibilitySegment` object
-allows the following observer objects:
+accepts the following observer object types:
 
 * `Spacecraft <https://ai-solutions.com/_help_Files/the_spacecraft_object.htm>`_
 * `Sensor <https://ai-solutions.com/_help_Files/sensors.htm>`_
@@ -55,7 +54,7 @@ allows the following observer objects:
 * `GroundVehicle <https://ai-solutions.com/_help_Files/groundvehicles.htm>`_
 
 
-The :ref:`VisibilitySegment` object allows the following target objects:
+The :ref:`VisibilitySegment` object accepts the following target object types:
 
 * `Spacecraft <https://ai-solutions.com/_help_Files/the_spacecraft_object.htm>`_
 * `Sensor <https://ai-solutions.com/_help_Files/sensors.htm>`_
@@ -66,7 +65,7 @@ The :ref:`VisibilitySegment` object allows the following target objects:
 * `PointGroupPoint <https://ai-solutions.com/_help_Files/pointgroups.htm>`_
 
 
-To create a :ref:`VisibilitySegment` and set its observer and target via scripting, please follow the example below.
+To create a :ref:`VisibilitySegment` and set its observer and target via scripting, please use the example script below.
 
 .. code-block:: c++
 
