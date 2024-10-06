@@ -1,4 +1,3 @@
-# Documentation example
+# Space Products Technical Writing Sample 
 
-We use this example in the lesson
-[How to document your research software](https://coderefinery.github.io/documentation/).
+[GitHub Pages link here](https://brandimac.github.io/space-products/)

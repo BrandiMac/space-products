@@ -9,7 +9,7 @@
 project = 'FreeFlyer'
 author = 'Brandi McPherson'
 release = 'v.1.0'
-
+logo = "freeflyer.png"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
