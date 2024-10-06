@@ -2,7 +2,7 @@
 VisibilityCalculators
 #########################
 
-<include blurb about what "visibility" means or "occulting bodies"
+TODO <include blurb about what "visibility" means or "occulting bodies"?
 
 The :ref:`VisibilitySegment` object allows users to determine whether an observer can see a target, based on the
 user-specified configuration for occulting bodies, occulting terrain, celestial object shape models, and refraction.
@@ -24,6 +24,7 @@ For missions demonstrating the use of the
 your FreeFlyer installation) helpful:
 
 Coverage and Contact Samples:
+==============================
 
 * `Chain Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_chains>`_
 * `Mutual Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_mutualvis>`_
@@ -31,6 +32,7 @@ Coverage and Contact Samples:
 * `VisibilityCalculator <https://ai-solutions.com/_help_Files/coverage_and_contact_smp .htm#achr_visibilitycalc>`_
 
 Interplanetary Samples:
+========================
 
 * `Asteroid Contact <https://ai-solutions.com/_help_Files/interplanetary_smp.htm#achr_astrcontact>`_
 
@@ -39,13 +41,13 @@ Interplanetary Samples:
 VisibilitySegment
 ***********************
 
-The `VisibilitySegment object <https://ai-solutions.com/_help_Files/>`_ allows users to determine whether an observer can see a target, based on the
-your specified configuration for occulting bodies, celestial object shape models, and refraction.
+The `VisibilitySegment object <https://ai-solutions.com/_help_Files/>`_ determines whether an observer can see a
+target based on your specified configuration for occulting bodies, celestial object shape models, and refraction.
 
 Setting the Observer and Target
 ==================================
-The :ref:`VisibilitySegment` object requires both an observer and target input.
-The :ref:`VisibilitySegment` object allows the following observer objects:
+Observer and target are required inputs for the :ref:`VisibilitySegment` object. The :ref:`VisibilitySegment` object
+allows the following observer objects:
 
 * `Spacecraft <https://ai-solutions.com/_help_Files/the_spacecraft_object.htm>`_
 * `Sensor <https://ai-solutions.com/_help_Files/sensors.htm>`_
@@ -76,9 +78,8 @@ To create a :ref:`VisibilitySegment` and set its observer and target via scripti
     Segment.SetTarget(PointGroup1[0]);
 
 
-If the target is a ``CelestialObject``, the user can specify whether to model the target as a point, sphere, or
-ellipsoid,
-as shown below.
+If the target is a ``CelestialObject``, you may specify whether to model the target as a point, sphere, or
+ellipsoid, as shown below.
 
 .. code-block:: c++
 
@@ -103,26 +104,23 @@ script below.
 
 .. note::
 
+    TODO rewrite
     The ``OccultingBodies`` property is by default ``empty``. The central bodies of the source and target are not
-assumed to
-    be occulting bodies. Additionally, if a ``GroundStation`` object is the observer, its central body will be ignored
-as an
-    occulting body (even if explicitly added) as the ``GroundStation`` mask is assumed to be a more accurate
-representation of
-    occultation due to the local terrain. If no mask is selected for the ``GroundStation`` observer, the
-:ref:`VisibilitySegment` will
-    treat it as a cone mask with a zero elevation angle for purposes of visibility calculations. If a
-``GroundStation`` or
-    ``PointGroundPoint`` object is the target, users should not model a ``GroundStation`` inside a spherical occulting
-body. An
-    ellipsoid occultation model should be used instead.
+    assumed to be occulting bodies. Additionally, if a ``GroundStation`` object is the observer, its central body will be
+    ignored as an occulting body (even if explicitly added) as the ``GroundStation`` mask is assumed to be a more accurate
+    representation of occultation due to the local terrain. If no mask is selected for the ``GroundStation`` observer,
+    the :ref:`VisibilitySegment` will treat it as a cone mask with a zero elevation angle for purposes of visibility
+    calculations. If a ``GroundStation`` or ``PointGroundPoint`` object is the target, users should not model a
+    ``GroundStation`` inside a spherical occulting body. An ellipsoid occultation model should be used instead.
 
 Setting up Occulting Terrain
 ===============================
-You may add or remove occulting `Terrain <https://ai-solutions.com/_help_Files/working_with_terrain.htm>`_ in order to define the surface features considered
+You may add or remove occulting `Terrain <https://ai-solutions.com/_help_Files/working_with_terrain.htm>`_ in order
+to define the surface features considered
 in determining target visibility. When including occulting terrain, you must model occulting
 bodies as ``ellipsoids`` using the `VisibilitySegment.CelestialObjectOccultationModel <https://ai-solutions
-.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm>`_ property, as shown below.
+.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm>`_ property, as shown in the
+script below.
 
 
 .. code-block:: c++
@@ -136,16 +134,19 @@ bodies as ``ellipsoids`` using the `VisibilitySegment.CelestialObjectOccultation
 
 .. note::
 
-    If the target of a :ref:`VisibilitySegment`, that includes occulting terrain, is a Celestial Object the user must set the
+    TODO rewrite
+    If the target of a :ref:`VisibilitySegment` both includes occulting terrain and is a Celestial Object, you must set
+    the
     `VisibilitySegment.CelestialObjectTargetModel <https://ai-solutions
     .com/_help_Files/visibilitysegment_celestialobjecttargetmodel_nanosecond.htm>`_ property to model a point.
     Additionally, the ``VisibilitySegments``
     does not currently support using both terrain occultion and refraction at the same time.
 
+
 Setting up Refraction
 ============================
-By default, refraction effects are not modeled when determining target visibility. Refraction modeling
-is enabled by setting the `VisibilitySegment.RefractionModelType <https://ai-solutions
+By default, refraction effects are not modeled when determining target visibility. You may enable refraction modeling
+by setting the `VisibilitySegment.RefractionModelType <https://ai-solutions
 .com/_help_Files/visibilitysegment_refractionmodeltype_nanosecond.htm>`_ property. The signal frequency used
 when computing refraction is set using the `VisibilitySegment.RefractionFrequency <https://ai-solutions
 .com/_help_Files/visibilitysegment_refractionfrequency_nanosecond.htm>`_ property. There are two valid
@@ -159,7 +160,7 @@ ranges of values when setting the refraction frequency: the radio spectrum (100 
     Segment.RefractionFrequency = 2e9;
 
 
-The following refraction models are available:
+Please use the table below to learn more about our available refraction models:
 
 .. table:: Refraction Models
     :widths: 20 20 20 20 20
@@ -229,9 +230,11 @@ The following refraction models are available:
 
 Output
 ==============
-Once the ``Segment`` has been configured, the following instantaneous methods are available for generating output. These
-methods report the instantaneous value of the azimuth and elevation angles from the observer to the target, and the
-``Visibility()`` method returns an instantaneous evaluation of whether the observer can see the target.
+Once the ``Segment`` has been configured, use the following instantaneous methods for generating output.
+These methods report the instantaneous value of the azimuth and elevation angles from the observer to the target.
+The ``Visibility()`` method returns an instantaneous evaluation of whether the observer can see the target.
+
+ TODO add definitions here
 
 * `VisibilitySegment.Azimuth() <https://ai-solutions.com/_help_Files/visibilitysegment_azimuth_nanosecond.htm>`_
 * `VisibilitySegment.Elevation() <https://ai-solutions.com/_help_Files/visibilitysegment_elevation_nanosecond.htm>`_
@@ -249,6 +252,7 @@ methods return the exact times of the visibility events.
   .com/_help_Files/visibilitysegment_visibilitytimes_nanosecond.htm>`_ - Calculates the exact times for start of
   visibility and end of visibility
 
+TODO say what script does
 
 .. code-block:: c++
 
@@ -268,21 +272,27 @@ methods return the exact times of the visibility events.
 ***********************
 VisibilityCalculator
 ***********************
+TODO rewrite
 A :ref:`VisibilityCalculator` object can be used to create and manage multiple ``VisibilitySegments`` when you want to
 evaluate
 whether all or any of a set of Segments are simultaneously true. For example, you may wish to know whether any Sensor
 on a Spacecraft can see a particular GroundStation. In that case, you can create a separate Segment for each Sensor,
 where the Sensor is the observer and the GroundStation is the target. Another example would be calculating a "chain" of
 contact. You may wish to know the times when a GroundStation can see a Spacecraft in a low-Earth orbit and that
-Spacecraft can also see another Spacecraft in a geosynchronous orbit. In that case, you can create a Segment for each
+Spacecraft can also see another Spacecraft in a geosynchronous orbit. In that case, you can create a ``Segment`` for
+each
 leg of communication and instruct the :ref:`VisibilityCalculator` to compute the times when all the Segments are complete.
 
 
 Setting up the Calculator
 ================================
-The "any" or "all" requirement can be set using the `VisibilityCalculator.VisibilityRequirement <https://ai-solutions
+TODO where is it stated that the calculator requires this?
+
+The ``any`` or ``all`` requirement can be set using the `VisibilityCalculator.VisibilityRequirement
+<https://ai-solutions
 .com/_help_Files/visibilitycalculator_visibilityrequirement_nanosecond.htm>`_ property.
 
+TODO what is this code doing
 
 .. code-block:: c++
 
@@ -290,9 +300,10 @@ The "any" or "all" requirement can be set using the `VisibilityCalculator.Visibi
     Calculator.VisibilityRequirement = 0;  // All
 
 
+Adding, Accessing, and Modifying Segments
+==========================================
 Segments can be created and added to a :ref:`VisibilityCalculator` using the ``AddSegment()`` method as shown below. You
-can
-optionally specify a label for the ``Segment``.
+can optionally specify a label for the ``Segment``.
 
 .. code-block:: c++
 
@@ -309,7 +320,6 @@ as shown below. Additional configuration options for the :ref:`VisibilitySegment
     Report Calculator.Segments[0].Label;
     Calculator.Segments[0].SetObserver(Spacecraft1);
     Calculator.Segments[0].SetTarget(GroundStation1);
-
 
 
 Individual ``VisibilitySegments`` can also be included or excluded from the :ref:`VisibilityCalculator` by setting the
@@ -332,11 +342,11 @@ available for generating output. See above for a description of the output metho
 :ref:`VisibilitySegment`.
 
 * `VisibilityCalculator.Visibility() <https://ai-solutions.com/_help_Files/visibilitycalculator_visibility_nanosecond
-  .htm>`_ - Instantaneous evaluation of visibility across all active Segments
+  .htm>`_ - Instantaneous evaluation of visibility across all active ``Segments``
 * `VisibilityCalculator.VisibilityTimes() <https://ai-solutions
   .com/_help_Files/visibilitycalculator_visibilitytimes_nanosecond.htm>`_ - `Interval method <https://ai-solutions
-  .com/_help_Files/interval_methods.htm>`_ evaluation of visibility
-  across all active Segments
+  .com/_help_Files/interval_methods.htm>`_ - Evaluation of visibility
+  across all active ``Segments``
 
 .. code-block:: c++
 
@@ -350,14 +360,18 @@ available for generating output. See above for a description of the output metho
           Step Spacecraft1;
     End;
 
+.. note::
 
-A `VisibilityTimes <https://ai-solutions.com/_help_Files/interval_methods.htm#achr_visibilitytimes>`_ usage example can
-be found on the `interval methods <https://ai-solutions.com/_help_Files/interval_methods.htm>`_ page.
+    A `VisibilityTimes <https://ai-solutions.com/_help_Files/interval_methods.htm#achr_visibilitytimes>`_ usage example can
+    be found on the `interval methods <https://ai-solutions.com/_help_Files/interval_methods.htm>`_ page.
 
 
 **************
 See Also
 **************
+
+Related Content
+=====================
 You may find the following adjacent pages useful when creating a ``VisibilitySegment`` or ``VisibilityCalculator``:
 
 * `VisibilityCalculator Properties and Methods <https://ai-solutions.com/_help_Files/visibilitycalculator_nanosecond
@@ -372,8 +386,14 @@ You may find the following adjacent pages useful when creating a ``VisibilitySeg
 * `CelestialObjects <https://ai-solutions.com/_help_Files/celestial_objects.htm>`_
 * `Stars <https://ai-solutions.com/_help_Files/stars.htm>`_
 
+Scripts
+===================
+TODO add section with full script
+
+----
+
 References
-================
+**************
 
 #. "The refractive index of air," B. Edlén, Metrologia 2, 71-80 (1966)
 #. "An updated Edlén equation for the refractive index of air," K.P. Birch and M.J. Downs, Metrologia 30, 155-162 (1993)
