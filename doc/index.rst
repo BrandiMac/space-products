@@ -6,7 +6,7 @@
 FreeFlyer Documentation
 =======================
 
-Welcome to FreeFlyer's documentation! Please choose a help guide from the index below.
+Welcome to FreeFlyer's documentation! Please select a help guide from the index below.
 
 .. toctree::
    :maxdepth: 1

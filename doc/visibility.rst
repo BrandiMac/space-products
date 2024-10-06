@@ -6,7 +6,8 @@ VisibilityCalculators
 
 The :ref:`VisibilitySegment` object allows users to determine whether an observer can see a target, based on the
 user-specified configuration for occulting bodies, occulting terrain, celestial object shape models, and refraction.
-The :ref:`VisibilityCalculator` object allows users to work with multiple VisibilitySegments at once in order to determine
+The :ref:`VisibilityCalculator` object allows users to work with multiple ``VisibilitySegments`` at once in order to
+determine
 whether ``any`` or ``all`` of the segments are simultaneously true.
 
 
@@ -16,8 +17,7 @@ whether ``any`` or ``all`` of the segments are simultaneously true.
 ***********************
 Sample Mission Plans
 ***********************
-
-For quick start demonstrating the use of the
+For missions demonstrating the use of the
 :ref:`VisibilityCalculator` and :ref:`VisibilitySegment` objects, you may find the following `Sample Mission Plans
 <https://ai-solutions
 .com/_help_Files/sample_mission_plans.htm>`_ (included with
@@ -39,7 +39,8 @@ Interplanetary Samples:
 VisibilitySegment
 ***********************
 
-<definition of visibility segment>
+The `VisibilitySegment object <https://ai-solutions.com/_help_Files/>`_ allows users to determine whether an observer can see a target, based on the
+your specified configuration for occulting bodies, celestial object shape models, and refraction.
 
 Setting the Observer and Target
 ==================================
@@ -86,8 +87,6 @@ as shown below.
 
 Setting up Occulting Bodies
 ===============================
-<what are occulting bodies?>
-
 You may remove occulting bodies in order to define the planets or moons that will be considered
 when determining if the observer can see the target. You may specify whether to model occulting bodies as spheres
 or ellipsoids using the `VisibilitySegment.CelestialObjectOccultationModel <https://ai-solutions
