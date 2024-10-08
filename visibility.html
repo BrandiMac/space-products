@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisibilityCalculators &mdash; FreeFlyer v.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8a49c756"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="FreeFlyer Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            FreeFlyer
+              <img src="_static/freeflyer.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Help Guides:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VisibilityCalculators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sample-mission-plans">Sample Mission Plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coverage-and-contact-samples">Coverage and Contact Samples:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interplanetary-samples">Interplanetary Samples:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visibilitysegment">VisibilitySegment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-the-observer-and-target">Setting the Observer and Target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-occulting-bodies">Setting up Occulting Bodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-occulting-terrain">Setting up Occulting Terrain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-refraction">Setting up Refraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">VisibilityCalculator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-calculator">Setting up the Calculator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-accessing-and-modifying-segments">Adding, Accessing, and Modifying Segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#relevant-pages">Relevant Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scripts">Scripts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">FreeFlyer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">VisibilityCalculators</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/visibility.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="visibilitycalculators">
+<h1><a class="toc-backref" href="#id13" role="doc-backlink">VisibilityCalculators</a><a class="headerlink" href="#visibilitycalculators" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> object allows you to determine a target’s “visibility”. In the context of FreeFlyer,
+“visibility” is defined as an observer’s ability to view a target based on occulting bodies, occulting terrain,
+celestial object shape models, and refraction. The <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> object allows you
+to work with multiple <code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> at once. You may use this calculator to determine whether <code class="docutils literal notranslate"><span class="pre">any</span></code>
+or <code class="docutils literal notranslate"><span class="pre">all</span></code> of the segments are simultaneously visible.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#visibilitycalculators" id="id13">VisibilityCalculators</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sample-mission-plans" id="id14">Sample Mission Plans</a></p>
+<ul>
+<li><p><a class="reference internal" href="#coverage-and-contact-samples" id="id15">Coverage and Contact Samples:</a></p></li>
+<li><p><a class="reference internal" href="#interplanetary-samples" id="id16">Interplanetary Samples:</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#visibilitysegment" id="id17">VisibilitySegment</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setting-the-observer-and-target" id="id18">Setting the Observer and Target</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-occulting-bodies" id="id19">Setting up Occulting Bodies</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-occulting-terrain" id="id20">Setting up Occulting Terrain</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-refraction" id="id21">Setting up Refraction</a></p></li>
+<li><p><a class="reference internal" href="#output" id="id22">Output</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id7" id="id23">VisibilityCalculator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#setting-up-the-calculator" id="id24">Setting up the Calculator</a></p></li>
+<li><p><a class="reference internal" href="#adding-accessing-and-modifying-segments" id="id25">Adding, Accessing, and Modifying Segments</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id26">Output</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#see-also" id="id27">See Also</a></p>
+<ul>
+<li><p><a class="reference internal" href="#relevant-pages" id="id28">Relevant Pages</a></p></li>
+<li><p><a class="reference internal" href="#scripts" id="id29">Scripts</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="sample-mission-plans">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Sample Mission Plans</a><a class="headerlink" href="#sample-mission-plans" title="Link to this heading"></a></h2>
+<p>For sample missions demonstrating the use of the
+<a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> and <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> objects, please view the following <a class="reference external" href="https://ai-solutions.com/_help_Files/sample_mission_plans.htm">Sample Mission Plans</a> (included with
+your FreeFlyer installation):</p>
+<section id="coverage-and-contact-samples">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Coverage and Contact Samples:</a><a class="headerlink" href="#coverage-and-contact-samples" title="Link to this heading"></a></h3>
+<p>These sample Mission Plans show examples of working with the FreeFlyer objects relating to coverage and contact
+analysis, such as Spacecraft and GroundStations.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_chains">Chain Visibility</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_mutualvis">Mutual Visibility</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_refraction">Refraction Model Types</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_visibilitycalc">VisibilityCalculator</a></p></li>
+</ul>
+</section>
+<section id="interplanetary-samples">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Interplanetary Samples:</a><a class="headerlink" href="#interplanetary-samples" title="Link to this heading"></a></h3>
+<p>These sample Mission Plans cover topics relating to propagating a spacecraft when the central body is not Earth.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/interplanetary_smp.htm#achr_astrcontact">Asteroid Contact</a></p></li>
+</ul>
+</section>
+</section>
+<section id="visibilitysegment">
+<h2><a class="toc-backref" href="#id17" role="doc-backlink">VisibilitySegment</a><a class="headerlink" href="#visibilitysegment" title="Link to this heading"></a></h2>
+<p>The <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_millisecond.htm?zoom_highlightsub=visibility">VisibilitySegment object</a> determines whether an observer can see a
+target based on the specified configuration for occulting bodies, celestial object shape models, and refraction.</p>
+<section id="setting-the-observer-and-target">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Setting the Observer and Target</a><a class="headerlink" href="#setting-the-observer-and-target" title="Link to this heading"></a></h3>
+<p>Observer and target are required inputs for the <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> object. The <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> object
+accepts the following observer object types:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/the_spacecraft_object.htm">Spacecraft</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/sensors.htm">Sensor</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundstations.htm">GroundStation</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundvehicles.htm">GroundVehicle</a></p></li>
+</ul>
+<p>The <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> object accepts the following target object types:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/the_spacecraft_object.htm">Spacecraft</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/sensors.htm">Sensor</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundstations.htm">GroundStation</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundvehicles.htm">GroundVehicle</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/celestial_objects.htm">CelestialObject</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/stars.htm">Star</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/pointgroups.htm">PointGroupPoint</a></p></li>
+</ul>
+<p>To create a <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> and set its observer and target via scripting, please use the example script below.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">VisibilitySegment</span><span class="w"> </span><span class="n">Segment</span><span class="p">;</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetObserver</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">GroundStation1</span><span class="p">);</span>
+
+<span class="c1">// Set the target of a VisibilitySegment to the first point in a PointGroup</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">PointGroup1</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>If the target is a <code class="docutils literal notranslate"><span class="pre">CelestialObject</span></code>, you may specify whether to model the target as a point, sphere, or
+ellipsoid by setting the value equal to 0, 1, or 2, respectively. The follow script demonstrates setting a spherical
+<a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_celestialobjecttargetmodel_millisecond.htm">CelestialObjectTargetModel</a>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectTargetModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Sphere</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-up-occulting-bodies">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Setting up Occulting Bodies</a><a class="headerlink" href="#setting-up-occulting-bodies" title="Link to this heading"></a></h3>
+<p>In order to define the planets or moons that should be considered
+when determining target visibility, you may add or remove occulting bodies from the <code class="docutils literal notranslate"><span class="pre">Segment</span></code>. You may model
+occulting bodies as spheres or ellipsoids by setting the <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm">VisibilitySegment
+.CelestialObjectOccultationModel</a> property to 0 or 1, respectively
+. In the following script example, we are adding the Earth and Moon, removing Jupiter, and setting the occultation
+model to 1, indicating an ellipsoid.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Segment</span><span class="p">.</span><span class="n">AddOccultingBody</span><span class="p">(</span><span class="n">Earth</span><span class="p">,</span><span class="w"> </span><span class="n">Moon</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RemoveOccultingBody</span><span class="p">(</span><span class="n">Jupiter</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectOccultationModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Ellipsoid</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">OccultingBodies</span></code> property default is <code class="docutils literal notranslate"><span class="pre">empty</span></code>. The central bodies of the observer and target are not
+assumed to be occulting bodies.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">GroundStation</span></code> mask is assumed to
+be a more accurate representation of occultation due to the local terrain, and therefore its central body will be
+ignored as an occulting body even if explicitly added.</p></li>
+<li><p>If no mask is selected for a <code class="docutils literal notranslate"><span class="pre">GroundStation</span></code> observer,
+the <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> will treat it as a cone mask with a zero elevation angle for visibility
+calculations.</p></li>
+<li><p>If the target is a <code class="docutils literal notranslate"><span class="pre">GroundStation</span></code> or <code class="docutils literal notranslate"><span class="pre">PointGroundPoint</span></code>, users should <strong>not</strong> model a
+<code class="docutils literal notranslate"><span class="pre">GroundStation</span></code> inside a spherical occulting body, but instead us an ellipsoid occultation model.</p></li>
+</ul>
+</div>
+</section>
+<section id="setting-up-occulting-terrain">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Setting up Occulting Terrain</a><a class="headerlink" href="#setting-up-occulting-terrain" title="Link to this heading"></a></h3>
+<p>You may add or remove occulting <a class="reference external" href="https://ai-solutions.com/_help_Files/working_with_terrain.htm">Terrain</a> in order
+to define the surface features considered
+in determining target visibility. When including occulting terrain, you must model occulting
+bodies as <code class="docutils literal notranslate"><span class="pre">ellipsoids</span></code> using the <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm">VisibilitySegment.CelestialObjectOccultationModel</a> property, as shown in the
+script below.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Terrain</span><span class="w"> </span><span class="n">Terrain1</span><span class="p">;</span>
+<span class="n">Terrain</span><span class="w"> </span><span class="n">Terrain2</span><span class="p">;</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">AddOccultingTerrain</span><span class="p">(</span><span class="n">Terrain1</span><span class="p">,</span><span class="w"> </span><span class="n">Terrain2</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RemoveOccultingTerrain</span><span class="p">(</span><span class="n">Terrain2</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectOccultationModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Ellipsoid</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the target of a <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> is a Celestial Object and includes occulting terrain, you must
+set the
+<a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_celestialobjecttargetmodel_nanosecond.htm">VisibilitySegment.CelestialObjectTargetModel</a> property to model a point.
+Additionally, the <code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> objects
+do not currently support using both terrain occultion and refraction at the same time.</p>
+</div>
+</section>
+<section id="setting-up-refraction">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Setting up Refraction</a><a class="headerlink" href="#setting-up-refraction" title="Link to this heading"></a></h3>
+<p>By default, refraction effects are not modeled when determining target visibility. You may enable refraction modeling
+by setting the <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_refractionmodeltype_nanosecond.htm">VisibilitySegment.RefractionModelType</a> property. The signal frequency used
+when computing refraction is set using the <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_refractionfrequency_nanosecond.htm">VisibilitySegment.RefractionFrequency</a> property. There are two valid
+ranges of values when setting the refraction frequency: the radio spectrum (100 MHz - 100 GHz) and visible spectrum
+(176.3485 THz - 999.3081 THz).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Segment</span><span class="p">.</span><span class="n">RefractionModelType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// Numeric - Multiple Chapman Profiles</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RefractionFrequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2e9</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Please use the table below to learn more about our available refraction models:</p>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-text">Refraction Models</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Refraction Model</p></th>
+<th class="head"><p>Frequency Band</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Accuracy</p></th>
+<th class="head"><p>Runtime</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>None</p></td>
+<td><p>N/A</p></td>
+<td><p>No refraction.</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>Numeric - Single Chapman Profile</p></td>
+<td><p>Visible</p></td>
+<td><ul class="simple">
+<li><p>Tropospheric refraction effects are modeled using
+the Edlén model. <sup>1234</sup></p></li>
+<li><p>Ionospheric refraction effects are not modeled.</p></li>
+<li><p>In the visible spectrum, this model matches the
+“Numeric - Multiple Chapman Profiles” model,
+and their results will be identical.</p></li>
+</ul>
+</td>
+<td><p>Very high</p></td>
+<td><p>Fast</p></td>
+</tr>
+<tr class="row-even"><td><p>Radio</p></td>
+<td><ul class="simple">
+<li><p>Tropospheric refraction effects are modeled using the
+International Telecommunications Union (ITU) model.:sup:<cite>5</cite></p></li>
+<li><p>Ionospheric refraction effects are modeled using the
+International Reference Ionosphere (IRI) and Chapman
+electron density profile at the latitude and longitude
+location of the minimum-height point along the ray path,
+and applies the Chapman profile from that location along
+the whole ray path.</p></li>
+</ul>
+</td>
+<td><p>High</p></td>
+<td><p>Fast</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>Numeric - Multiple Chapman Profiles</p></td>
+<td><p>Visible</p></td>
+<td><ul class="simple">
+<li><p>Tropospheric refraction effects are modeled using
+the Edlén model.:sup:<cite>1234</cite></p></li>
+<li><p>Ionospheric refraction effects are not modeled.</p></li>
+<li><p>In the visible spectrum, this model matches the
+“Numeric - Single Chapman Profile” model, and
+their results will be identical.</p></li>
+</ul>
+</td>
+<td><p>Very high</p></td>
+<td><p>Fast</p></td>
+</tr>
+<tr class="row-even"><td><p>Radio</p></td>
+<td><ul class="simple">
+<li><p>Tropospheric refraction effects are modeled using
+the International Telecommunications Union (ITU) model.:sup:<cite>5</cite></p></li>
+<li><p>Ionospheric refraction effects are modeled using the
+International Reference Ionosphere (IRI) and Chapman
+electron density profile at multiple points along the
+ray path, in order to determine the electron density
+at the height of the ray path.6</p></li>
+</ul>
+</td>
+<td><p>Very high</p></td>
+<td><p>Slower</p></td>
+</tr>
+<tr class="row-odd"><td><p>Analytic - Chapman</p></td>
+<td><p>Any</p></td>
+<td><p>This Earth refraction model is based on analytic
+Chapman theory.:sup:<cite>7</cite> This refraction model is only
+allowed when the observing object is a GroundStation.</p></td>
+<td><p>Medium</p></td>
+<td><p>Very fast</p></td>
+</tr>
+<tr class="row-even"><td><p>Analytic - TRORD</p></td>
+<td><p>N/A</p></td>
+<td><ul class="simple">
+<li><p>Tropospheric refraction effects are modeled
+based on the TRORD refraction model.:sup:<cite>8</cite>
+This model is only allowed when the observing object
+is a GroundStation. This model uses the local-mean
+refractivity coefficients for each month specified by
+the GroundStation.RefractivityNs property of the observing
+GroundStation. The VisibilitySegment.RefractionFrequency
+setting is not used with this model.</p></li>
+<li><p>Ionospheric refraction effects are not modeled</p></li>
+</ul>
+</td>
+<td><p>Medium</p></td>
+<td><p>Very fast</p></td>
+</tr>
+<tr class="row-odd"><td><p>Numeric - Exponential</p></td>
+<td><p>N/A</p></td>
+<td><p>This simple exponential model calculates a long-term
+global mean refractive index as a function of height.:sup:<cite>9</cite>
+The VisibilitySegment.RefractionFrequency setting is not
+used with this model.</p></td>
+<td><p>Medium</p></td>
+<td><p>Very fast</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These refraction models are only used for calculating refraction through the Earth’s atmosphere. Refraction is not
+modeled for any other celestial bodies.</p>
+</div>
+</section>
+<section id="output">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Output</a><a class="headerlink" href="#output" title="Link to this heading"></a></h3>
+<p>Once the <code class="docutils literal notranslate"><span class="pre">Segment</span></code> has been configured, use the following instantaneous methods for generating output.
+These methods report the instantaneous value of the azimuth and elevation angles from the observer to the target.
+The <code class="docutils literal notranslate"><span class="pre">Visibility()</span></code> method returns an instantaneous evaluation of the target’s visibility from the observer given an
+evaluation epoch.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_azimuth_nanosecond.htm">VisibilitySegment.Azimuth()</a> -
+Referenced to the X-Y plane of the observer’s body frame and ranges from 0 to 360 degrees.</p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_elevation_nanosecond.htm">VisibilitySegment.Elevation()</a> -
+Referenced from the X-Y plane of the observer’s body frame and ranges from -90 to 90 degrees.</p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_visibility_nanosecond.htm">VisibilitySegment.Visibility()</a> -
+Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> (1) if target is visible by the observer and <code class="docutils literal notranslate"><span class="pre">False</span></code> (0) if target is not visible by the observer.</p></li>
+</ul>
+<p>The following <a class="reference external" href="https://ai-solutions.com/_help_Files/interval_methods.htm">interval methods</a>
+return the exact times of the visibility events.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_elevationtimes_nanosecond.htm">VisibilitySegment.ElevationTimes()</a> - Calculates the exact times for start of
+visibility, end of visibility, and
+maximum elevation.</p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_visibilitytimes_nanosecond.htm">VisibilitySegment.VisibilityTimes()</a> - Calculates the exact times for start of
+visibility and end of visibility.</p></li>
+</ul>
+<p>The following script reports the visibility of the target from observer (Spacecraft1) at different times throughout the
+simulation.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">While</span><span class="w"> </span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">ElapsedTime</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TIMESPAN</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="n">days</span><span class="p">));</span>
+<span class="w">    </span><span class="n">Report</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">EpochText</span><span class="p">,</span><span class="w"> </span><span class="n">Segment</span><span class="p">.</span><span class="n">Visibility</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">Epoch</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Step</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">;</span>
+<span class="n">End</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As of FreeFlyer 7.3, the default timing precision mode is <code class="docutils literal notranslate"><span class="pre">nanosecond</span></code> precision mode. For older Mission
+Plans that have not yet been converted from <code class="docutils literal notranslate"><span class="pre">millisecond</span></code> precision mode, the syntax for working with times is
+different. See the <a class="reference external" href="https://ai-solutions.com/_help_Files/timing_precision_modes.htm">timing precision mode</a> page
+for more information.</p>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">VisibilityCalculator</a><a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<p>When working with multiple <code class="docutils literal notranslate"><span class="pre">Segments</span></code>, you may need to evaluate when all targets are visible by the observer. A
+<a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> object manages multiple <code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> and evaluates visibility based on an
+<code class="docutils literal notranslate"><span class="pre">any</span></code> or <code class="docutils literal notranslate"><span class="pre">all</span></code> condition. For example, you may wish to know whether any Sensor
+on a Spacecraft can see a particular GroundStation. You can create a separate Segment for each Sensor,
+with the Sensor as the observer and the GroundStation as the target. Another use for the <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a>
+is calculating a “chain” of contact. For example, you may wish to know the overlapping times when a
+GroundStation can see a specific Spacecraft in a low-Earth orbit while the same Spacecraft can see another
+Spacecraft in a geosynchronous orbit. In that case, you can create a <code class="docutils literal notranslate"><span class="pre">Segment</span></code> for
+each leg of communication and instruct the <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> to compute the times when all the Segments are
+complete.</p>
+<section id="setting-up-the-calculator">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Setting up the Calculator</a><a class="headerlink" href="#setting-up-the-calculator" title="Link to this heading"></a></h3>
+<p>To set up the calculator, you must first set the <code class="docutils literal notranslate"><span class="pre">VisibilityRequirement</span></code> using the <a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitycalculator_visibilityrequirement_nanosecond.htm">VisibilityCalculator.VisibilityRequirement</a> property, where 0 indicates <strong>all</strong>
+targets must be viewable, and 1 indicates <strong>any</strong> target can be viewable.</p>
+<p>The following script creates a <code class="docutils literal notranslate"><span class="pre">VisibilityCalculator</span></code> using the <code class="docutils literal notranslate"><span class="pre">all</span></code> requirement.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">VisibilityCalculator</span><span class="w"> </span><span class="n">Calculator</span><span class="p">;</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">VisibilityRequirement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// All</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-accessing-and-modifying-segments">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Adding, Accessing, and Modifying Segments</a><a class="headerlink" href="#adding-accessing-and-modifying-segments" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Segments</span></code> can be created and added to a <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> using the <code class="docutils literal notranslate"><span class="pre">AddSegment()</span></code> method.
+You can optionally specify a label for the <code class="docutils literal notranslate"><span class="pre">Segment</span></code> within the <code class="docutils literal notranslate"><span class="pre">AddSegment()</span></code> call.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Calculator</span><span class="p">.</span><span class="n">AddSegment</span><span class="p">(</span><span class="s">&quot;sc-to-gs&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once a <a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> has been added to a <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a>, you can access and configure the
+<a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> as shown below. You may view additional configuration options for the
+<a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a> in the previous section.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Report</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span>
+<span class="n">Report</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Label</span><span class="p">;</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">SetObserver</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">);</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">GroundStation1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Individual <code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> can also be included or excluded from the <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> by setting the
+<a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_active_nanosecond.htm">VisibilitySegment.Active</a> property
+value to 1 or 0, indicating activate or inactive, respectively.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Active (default)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> can be removed from a <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a> using the <code class="docutils literal notranslate"><span class="pre">RemoveSegment()</span></code> method. You can
+also
+<code class="docutils literal notranslate"><span class="pre">RemoveAllSegments()</span></code> or <code class="docutils literal notranslate"><span class="pre">ResetConfiguration()</span></code> for a <a class="reference internal" href="#id7"><span class="std std-ref">VisibilityCalculator</span></a>.</p>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Output</a><a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>Once the <code class="docutils literal notranslate"><span class="pre">VisibilityCalculator</span></code> and all <code class="docutils literal notranslate"><span class="pre">VisibilitySegments</span></code> have been configured, the following methods are
+available for generating output. See the previous section for output methods available for each individual
+<a class="reference internal" href="#visibilitysegment"><span class="std std-ref">VisibilitySegment</span></a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitycalculator_visibility_nanosecond.htm">VisibilityCalculator.Visibility()</a> - Instantaneous evaluation of visibility across all active <code class="docutils literal notranslate"><span class="pre">Segments</span></code></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitycalculator_visibilitytimes_nanosecond.htm">VisibilityCalculator.VisibilityTimes()</a> - <a class="reference external" href="https://ai-solutions.com/_help_Files/interval_methods.htm">Interval method</a> - Evaluation of visibility
+across all active <code class="docutils literal notranslate"><span class="pre">Segments</span></code></p></li>
+</ul>
+<p>The following script first reports whether targets are visible by Spacecraft1 at the specified Epoch. Then,
+visibility is reported for each active Segment in the calculator.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">While</span><span class="w"> </span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">ElapsedTime</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TIMESPAN</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="n">days</span><span class="p">));</span>
+<span class="w">      </span><span class="c1">// Report whether all segments are complete</span>
+<span class="w">      </span><span class="n">Report</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">EpochText</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Visibility</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">Epoch</span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// Report whether each segment is complete</span>
+<span class="w">      </span><span class="n">For</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">.</span><span class="n">Count</span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Report</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">EpochText</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Label</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Visibility</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">Epoch</span><span class="p">);</span>
+<span class="w">      </span><span class="n">End</span><span class="p">;</span>
+
+<span class="w">      </span><span class="n">Step</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">;</span>
+<span class="n">End</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An extended <a class="reference external" href="https://ai-solutions.com/_help_Files/interval_methods.htm#achr_visibilitytimes">VisibilityTimes</a>
+usage example can
+be found on the <a class="reference external" href="https://ai-solutions.com/_help_Files/interval_methods.htm">interval methods</a> page.</p>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id27" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<section id="relevant-pages">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Relevant Pages</a><a class="headerlink" href="#relevant-pages" title="Link to this heading"></a></h3>
+<p>You may find the following adjacent pages useful when creating a <code class="docutils literal notranslate"><span class="pre">VisibilitySegment</span></code> or <code class="docutils literal notranslate"><span class="pre">VisibilityCalculator</span></code>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitycalculator_nanosecond.htm">VisibilityCalculator Properties and Methods</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/visibilitysegment_nanosecond.htm">VisibilitySegment Properties and Methods</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/interval_methods.htm">Interval Methods</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/contact_method_summary.htm">Contact Method Summary</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/the_spacecraft_object.htm">The Spacecraft Object</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/sensors.htm">Sensors</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundstations.htm">GroundStations</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/groundvehicles.htm">GroundVehicle</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/celestial_objects.htm">CelestialObjects</a></p></li>
+<li><p><a class="reference external" href="https://ai-solutions.com/_help_Files/stars.htm">Stars</a></p></li>
+</ul>
+</section>
+<section id="scripts">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Scripts</a><a class="headerlink" href="#scripts" title="Link to this heading"></a></h3>
+<p>Full scripting example using <code class="docutils literal notranslate"><span class="pre">VisibilitySegment</span></code> and <code class="docutils literal notranslate"><span class="pre">VisibilityCalculator</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a VisibilitySegment</span>
+<span class="n">VisibilitySegment</span><span class="w"> </span><span class="n">Segment</span><span class="p">;</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetObserver</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">GroundStation1</span><span class="p">);</span>
+
+<span class="c1">// Set the target of a VisibilitySegment to the first point in a PointGroup</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">PointGroup1</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+<span class="c1">// Set as sphere model</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectTargetModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Sphere</span>
+
+<span class="c1">// Set occulting bodies</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">AddOccultingBody</span><span class="p">(</span><span class="n">Earth</span><span class="p">,</span><span class="w"> </span><span class="n">Moon</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RemoveOccultingBody</span><span class="p">(</span><span class="n">Jupiter</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectOccultationModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Ellipsoid</span>
+
+<span class="c1">// Set occulting terrain</span>
+<span class="n">Terrain</span><span class="w"> </span><span class="n">Terrain1</span><span class="p">;</span>
+<span class="n">Terrain</span><span class="w"> </span><span class="n">Terrain2</span><span class="p">;</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">AddOccultingTerrain</span><span class="p">(</span><span class="n">Terrain1</span><span class="p">,</span><span class="w"> </span><span class="n">Terrain2</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RemoveOccultingTerrain</span><span class="p">(</span><span class="n">Terrain2</span><span class="p">);</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">CelestialObjectOccultationModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Ellipsoid</span>
+
+<span class="c1">// Set the refraction model</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RefractionModelType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">  </span><span class="c1">// Numeric - Multiple Chapman Profiles</span>
+<span class="n">Segment</span><span class="p">.</span><span class="n">RefractionFrequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2e9</span><span class="p">;</span>
+
+<span class="c1">// Create the calculator with a visibility requirement of all</span>
+<span class="n">VisibilityCalculator</span><span class="w"> </span><span class="n">Calculator</span><span class="p">;</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">VisibilityRequirement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// All</span>
+
+<span class="c1">// Add a segment with label</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">AddSegment</span><span class="p">(</span><span class="s">&quot;sc-to-gs&quot;</span><span class="p">);</span>
+
+<span class="c1">// Set the first Segment in the calculator to use Spacecraft1 observer and GroundStation1 target</span>
+<span class="n">Report</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span>
+<span class="n">Report</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Label</span><span class="p">;</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">SetObserver</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">);</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">GroundStation1</span><span class="p">);</span>
+
+<span class="c1">// Set the first segment as active</span>
+<span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// Active (default)</span>
+
+<span class="c1">// Return outputs</span>
+<span class="n">While</span><span class="w"> </span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">ElapsedTime</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">TIMESPAN</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="n">days</span><span class="p">));</span>
+<span class="w">      </span><span class="c1">// Report whether all segments are complete</span>
+<span class="w">      </span><span class="n">Report</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">EpochText</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Visibility</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">Epoch</span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// Report whether each segment is complete</span>
+<span class="w">      </span><span class="n">For</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">.</span><span class="n">Count</span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">            </span><span class="n">Report</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">EpochText</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Label</span><span class="p">,</span><span class="w"> </span><span class="n">Calculator</span><span class="p">.</span><span class="n">Segments</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Visibility</span><span class="p">(</span><span class="n">Spacecraft1</span><span class="p">.</span><span class="n">Epoch</span><span class="p">);</span>
+<span class="w">      </span><span class="n">End</span><span class="p">;</span>
+<span class="w">      </span><span class="n">Step</span><span class="w"> </span><span class="n">Spacecraft1</span><span class="p">;</span>
+<span class="n">End</span><span class="p">;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<section id="references">
+<h4>References<a class="headerlink" href="#references" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p>“The refractive index of air,” B. Edlén, Metrologia 2, 71-80 (1966)</p></li>
+<li><p>“An updated Edlén equation for the refractive index of air,” K.P. Birch and M.J. Downs, Metrologia 30, 155-162 (1993)</p></li>
+<li><p>“Correction to the updated Edlén equation for the refractive index of air,” K.P. Birch and M.J. Downs, Metrologia
+31, 315-316 (1994)</p></li>
+<li><p>NIST Engineering Metrology Toolbox at <a class="reference external" href="http://emtoolbox.nist.gov/Wavelength/Documentation.asp">http://emtoolbox.nist.gov/Wavelength/Documentation.asp</a></p></li>
+<li><p>“Recommendation ITU-R P.453-10 (02.12), The radio refractive index: its formula and refractivity data”, Section 1,
+February 2012</p></li>
+<li><p>“The Theory of Scintillation with Applications in Remote Sensing”, Charles L. Rino, January 2011</p></li>
+<li><p>“Goddard Trajectory Determination System (GTDS) Mathematical Theory”, Section 7, July 1989</p></li>
+<li><p>“Software Requirements Specification for Tracking and Orbit Determination (TRORD) CPCI 202 of the Command and
+Control Segment Math Appendix”, September 1992</p></li>
+<li><p>“Recommendation ITU-R P.453-10 (02.12), The radio refractive index: its formula and refractivity data”, Section 2,
+Equation 8, February 2012</p></li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="FreeFlyer Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
