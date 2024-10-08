@@ -345,7 +345,7 @@ also
 
 Output
 ============
-Once the :ref:`VisibilityCalculator` and all ``VisibilitySegments`` have been configured, the following methods are
+Once the ``VisibilityCalculator`` and all ``VisibilitySegments`` have been configured, the following methods are
 available for generating output. See the previous section for output methods available for each individual
 :ref:`VisibilitySegment`.
 
