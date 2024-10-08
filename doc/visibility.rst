@@ -375,7 +375,8 @@ visibility is reported for each active Segment in the calculator.
 
 .. note::
 
-    A `VisibilityTimes <https://ai-solutions.com/_help_Files/interval_methods.htm#achr_visibilitytimes>`_ usage example can
+    An extended `VisibilityTimes <https://ai-solutions.com/_help_Files/interval_methods.htm#achr_visibilitytimes>`_
+    usage example can
     be found on the `interval methods <https://ai-solutions.com/_help_Files/interval_methods.htm>`_ page.
 
 
