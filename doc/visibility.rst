@@ -139,7 +139,7 @@ script below.
 
 .. note::
 
-    If the target of a :ref:`VisibilitySegment` and is a Celestial Object and includes occulting terrain, you must
+    If the target of a :ref:`VisibilitySegment` is a Celestial Object and includes occulting terrain, you must
     set the
     `VisibilitySegment.CelestialObjectTargetModel <https://ai-solutions
     .com/_help_Files/visibilitysegment_celestialobjecttargetmodel_nanosecond.htm>`_ property to model a point.
