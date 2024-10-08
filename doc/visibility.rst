@@ -1,10 +1,10 @@
 #########################
 VisibilityCalculators
 #########################
-The :ref:`VisibilitySegment` object allows you to determine a "visibility", which is defined as an
-observer's ability to view a target based on the conditions specified in your configuration for occulting bodies,
-occulting terrain, celestial object shape models, and refraction. The :ref:`VisibilityCalculator` object allows you
-to work with multiple ``VisibilitySegments`` at once.  You may use this calculator to determine whether ``any``
+The :ref:`VisibilitySegment` object allows you to determine a target's "visibility". In the context of FreeFlyer,
+"visibility" is defined as an observer's ability to view a target based on occulting bodies, occulting terrain,
+celestial object shape models, and refraction. The :ref:`VisibilityCalculator` object allows you
+to work with multiple ``VisibilitySegments`` at once. You may use this calculator to determine whether ``any``
 or ``all`` of the segments are simultaneously visible.
 
 
@@ -23,8 +23,7 @@ your FreeFlyer installation):
 Coverage and Contact Samples:
 ==============================
 These sample Mission Plans show examples of working with the FreeFlyer objects relating to coverage and contact
-analysis, such as Spacecraft and GroundStations. After exploring these Mission Plans, continue to the Coverage and
-Contact Analysis Guide for more information.
+analysis, such as Spacecraft and GroundStations.
 
 * `Chain Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_chains>`_
 * `Mutual Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_mutualvis>`_
@@ -33,8 +32,7 @@ Contact Analysis Guide for more information.
 
 Interplanetary Samples:
 ========================
-These sample Mission Plans cover topics relating to propagating a spacecraft when the central body is not Earth. After
-exploring these Mission Plans, continue to the Interplanetary Analysis Guide for more information.
+These sample Mission Plans cover topics relating to propagating a spacecraft when the central body is not Earth.
 
 * `Asteroid Contact <https://ai-solutions.com/_help_Files/interplanetary_smp.htm#achr_astrcontact>`_
 
@@ -310,16 +308,17 @@ The following script creates a ``VisibilityCalculator`` using the ``all`` requir
 
 Adding, Accessing, and Modifying Segments
 ==========================================
-``Segments`` can be created and added to a :ref:`VisibilityCalculator` using the ``AddSegment()`` method as shown below.
-You can optionally specify a label for the ``Segment``.
+``Segments`` can be created and added to a :ref:`VisibilityCalculator` using the ``AddSegment()`` method.
+You can optionally specify a label for the ``Segment`` within the ``AddSegment()`` call.
 
 .. code-block:: c++
 
     Calculator.AddSegment("sc-to-gs");
 
 
-Once a :ref:`VisibilitySegment` has been added to a :ref:`VisibilityCalculator`, you can access the :ref:`VisibilitySegment` and configure it
-as shown below. You may view additional configuration options for the :ref:`VisibilitySegment` in the previous section.
+Once a :ref:`VisibilitySegment` has been added to a :ref:`VisibilityCalculator`, you can access and configure the
+:ref:`VisibilitySegment` as shown below. You may view additional configuration options for the
+:ref:`VisibilitySegment` in the previous section.
 
 
 .. code-block:: c++
@@ -358,10 +357,7 @@ available for generating output. See the previous section for output methods ava
   across all active ``Segments``
 
 The following script first reports whether targets are visible by Spacecraft1 at the specified Epoch. Then,
-visibility is
-reported for each active Segment
-in the
-calculator.
+visibility is reported for each active Segment in the calculator.
 
 .. code-block:: c++
 
@@ -387,8 +383,8 @@ calculator.
 See Also
 **************
 
-Related Content
-=====================
+Relevant Pages
+=================
 You may find the following adjacent pages useful when creating a ``VisibilitySegment`` or ``VisibilityCalculator``:
 
 * `VisibilityCalculator Properties and Methods <https://ai-solutions.com/_help_Files/visibilitycalculator_nanosecond
@@ -405,6 +401,8 @@ You may find the following adjacent pages useful when creating a ``VisibilitySeg
 
 Scripts
 ===================
+Full scripting example using ``VisibilitySegment`` and ``VisibilityCalculator``
+
 .. code-block:: c++
 
     // Create a VisibilitySegment
@@ -450,7 +448,7 @@ Scripts
     // Set the first segment as active
     Calculator.Segments[0].Active = 1;  // Active (default)
 
-    // Return
+    // Return outputs
     While (Spacecraft1.ElapsedTime < TIMESPAN(1 days));
           // Report whether all segments are complete
           Report Spacecraft1.EpochText, Calculator.Visibility(Spacecraft1.Epoch);
