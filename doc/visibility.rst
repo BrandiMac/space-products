@@ -1,13 +1,11 @@
 #########################
 VisibilityCalculators
 #########################
-
-TODO include blurb about what "visibility" means or "occulting bodies" and rewrite this main intro.
-
-The :ref:`VisibilitySegment` object allows you to determine whether an observer can see a target, based on the
-your specified configuration for occulting bodies, occulting terrain, celestial object shape models, and refraction.
-The :ref:`VisibilityCalculator` object allows you to work with multiple ``VisibilitySegments`` at once in order to
-determine whether ``any`` or ``all`` of the segments are simultaneously true.
+The :ref:`VisibilitySegment` object allows you to determine a target's visibility, which is defined as an
+observer's ability to view a target based on the conditions specified in your configuration for occulting bodies,
+occulting terrain, celestial object shape models, and refraction. The :ref:`VisibilityCalculator` object allows you
+to work with multiple ``VisibilitySegments`` at once.  You may use this calculator to determine whether ``any``
+or ``all`` of the segments are simultaneously visible.
 
 
 .. contents:: Contents
@@ -16,14 +14,17 @@ determine whether ``any`` or ``all`` of the segments are simultaneously true.
 ***********************
 Sample Mission Plans
 ***********************
-For missions demonstrating the use of the
-:ref:`VisibilityCalculator` and :ref:`VisibilitySegment` objects, you may find the following `Sample Mission Plans
+For sample missions demonstrating the use of the
+:ref:`VisibilityCalculator` and :ref:`VisibilitySegment` objects, please view the following `Sample Mission Plans
 <https://ai-solutions
 .com/_help_Files/sample_mission_plans.htm>`_ (included with
-your FreeFlyer installation) helpful:
+your FreeFlyer installation):
 
 Coverage and Contact Samples:
 ==============================
+These sample Mission Plans show examples of working with the FreeFlyer objects relating to coverage and contact
+analysis, such as Spacecraft and GroundStations. After exploring these Mission Plans, continue to the Coverage and
+Contact Analysis Guide for more information.
 
 * `Chain Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_chains>`_
 * `Mutual Visibility <https://ai-solutions.com/_help_Files/coverage_and_contact_smp.htm#achr_mutualvis>`_
@@ -32,6 +33,8 @@ Coverage and Contact Samples:
 
 Interplanetary Samples:
 ========================
+These sample Mission Plans cover topics relating to propagating a spacecraft when the central body is not Earth. After
+exploring these Mission Plans, continue to the Interplanetary Analysis Guide for more information.
 
 * `Asteroid Contact <https://ai-solutions.com/_help_Files/interplanetary_smp.htm#achr_astrcontact>`_
 
@@ -39,9 +42,8 @@ Interplanetary Samples:
 ***********************
 VisibilitySegment
 ***********************
-
-The `VisibilitySegment object <https://ai-solutions.com/_help_Files/>`_ determines whether an observer can see a
-target based on your specified configuration for occulting bodies, celestial object shape models, and refraction.
+The `VisibilitySegment object <https://ai-solutions.com/_help_Files/visibilitysegment_millisecond.htm?zoom_highlightsub=visibility>`_ determines whether an observer can see a
+target based on the specified configuration for occulting bodies, celestial object shape models, and refraction.
 
 Setting the Observer and Target
 ==================================
@@ -78,7 +80,9 @@ To create a :ref:`VisibilitySegment` and set its observer and target via scripti
 
 
 If the target is a ``CelestialObject``, you may specify whether to model the target as a point, sphere, or
-ellipsoid, as shown below.
+ellipsoid by setting the value equal to 0, 1, or 2, respectively. The follow script demonstrates setting a spherical
+`CelestialObjectTargetModel <https://ai-solutions
+.com/_help_Files/visibilitysegment_celestialobjecttargetmodel_millisecond.htm>`_.
 
 .. code-block:: c++
 
@@ -87,11 +91,13 @@ ellipsoid, as shown below.
 
 Setting up Occulting Bodies
 ===============================
-You may remove occulting bodies in order to define the planets or moons that will be considered
-when determining if the observer can see the target. You may specify whether to model occulting bodies as spheres
-or ellipsoids using the `VisibilitySegment.CelestialObjectOccultationModel <https://ai-solutions
-.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm>`_ property, as shown in the
-script below.
+In order to define the planets or moons that should be considered
+when determining a target's visibility, you may add or remove occulting bodies from the ``Segment``. You may model
+occulting bodies as spheres or ellipsoids by setting the `VisibilitySegment
+.CelestialObjectOccultationModel <https://ai-solutions
+.com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm>`_ property to 0 or 1, respectively
+. In the following script example, we are adding the Earth and Moon, removing Jupiter, and setting the occultation
+model to 1, indicating an ellipsoid.
 
 
 .. code-block:: c++
@@ -103,14 +109,16 @@ script below.
 
 .. note::
 
-    TODO rewrite
-    The ``OccultingBodies`` property is by default ``empty``. The central bodies of the source and target are not
-    assumed to be occulting bodies. Additionally, if a ``GroundStation`` object is the observer, its central body will be
-    ignored as an occulting body (even if explicitly added) as the ``GroundStation`` mask is assumed to be a more accurate
-    representation of occultation due to the local terrain. If no mask is selected for the ``GroundStation`` observer,
-    the :ref:`VisibilitySegment` will treat it as a cone mask with a zero elevation angle for purposes of visibility
-    calculations. If a ``GroundStation`` or ``PointGroundPoint`` object is the target, users should not model a
-    ``GroundStation`` inside a spherical occulting body. An ellipsoid occultation model should be used instead.
+    * The ``OccultingBodies`` property default is ``empty``. The central bodies of the observer and target are not
+      assumed to be occulting bodies.
+    * The ``GroundStation`` mask is assumed to
+      be a more accurate representation of occultation due to the local terrain, and therefore its central body will be
+      ignored as an occulting body even if explicitly added.
+    * If no mask is selected for a ``GroundStation`` observer,
+      the :ref:`VisibilitySegment` will treat it as a cone mask with a zero elevation angle for visibility
+      calculations.
+    * If the target is a ``GroundStation`` or ``PointGroundPoint``, users should **not** model a
+      ``GroundStation`` inside a spherical occulting body, but instead us an ellipsoid occultation model.
 
 Setting up Occulting Terrain
 ===============================
@@ -133,13 +141,12 @@ script below.
 
 .. note::
 
-    TODO rewrite
-    If the target of a :ref:`VisibilitySegment` both includes occulting terrain and is a Celestial Object, you must set
-    the
+    If the target of a :ref:`VisibilitySegment` and is a Celestial Object and includes occulting terrain, you must
+    set the
     `VisibilitySegment.CelestialObjectTargetModel <https://ai-solutions
     .com/_help_Files/visibilitysegment_celestialobjecttargetmodel_nanosecond.htm>`_ property to model a point.
-    Additionally, the ``VisibilitySegments``
-    does not currently support using both terrain occultion and refraction at the same time.
+    Additionally, the ``VisibilitySegments`` objects
+    do not currently support using both terrain occultion and refraction at the same time.
 
 
 Setting up Refraction
@@ -231,27 +238,29 @@ Output
 ==============
 Once the ``Segment`` has been configured, use the following instantaneous methods for generating output.
 These methods report the instantaneous value of the azimuth and elevation angles from the observer to the target.
-The ``Visibility()`` method returns an instantaneous evaluation of whether the observer can see the target.
+The ``Visibility()`` method returns an instantaneous evaluation of the target's visibility from the observer given an
+evaluation epoch.
 
- TODO add definitions here
+* `VisibilitySegment.Azimuth() <https://ai-solutions.com/_help_Files/visibilitysegment_azimuth_nanosecond.htm>`_ -
+  Referenced to the X-Y plane of the observer's body frame and ranges from 0 to 360 degrees.
+* `VisibilitySegment.Elevation() <https://ai-solutions.com/_help_Files/visibilitysegment_elevation_nanosecond.htm>`_ -
+  Referenced from the X-Y plane of the observer's body frame and ranges from -90 to 90 degrees.
+* `VisibilitySegment.Visibility() <https://ai-solutions.com/_help_Files/visibilitysegment_visibility_nanosecond.htm>`_ -
+  Returns ``True`` (1) if target is visible by the observer and ``False`` (0) if target is not visible by the observer.
 
-* `VisibilitySegment.Azimuth() <https://ai-solutions.com/_help_Files/visibilitysegment_azimuth_nanosecond.htm>`_
-* `VisibilitySegment.Elevation() <https://ai-solutions.com/_help_Files/visibilitysegment_elevation_nanosecond.htm>`_
-* `VisibilitySegment.Visibility() <https://ai-solutions.com/_help_Files/visibilitysegment_visibility_nanosecond.htm>`_
 
-
-The following `interval methods <https://ai-solutions.com/_help_Files/interval_methods.htm>`_ are also available. These
-methods return the exact times of the visibility events.
+The following `interval methods <https://ai-solutions.com/_help_Files/interval_methods.htm>`_
+return the exact times of the visibility events.
 
 * `VisibilitySegment.ElevationTimes() <https://ai-solutions
   .com/_help_Files/visibilitysegment_elevationtimes_nanosecond.htm>`_ - Calculates the exact times for start of
   visibility, end of visibility, and
-  maximum elevation
+  maximum elevation.
 * `VisibilitySegment.VisibilityTimes() <https://ai-solutions
   .com/_help_Files/visibilitysegment_visibilitytimes_nanosecond.htm>`_ - Calculates the exact times for start of
-  visibility and end of visibility
+  visibility and end of visibility.
 
-TODO say what script does
+The following script reports the visibility of targets from Spacecraft1 at different times throughout the simulation.
 
 .. code-block:: c++
 
@@ -271,27 +280,26 @@ TODO say what script does
 ***********************
 VisibilityCalculator
 ***********************
-TODO rewrite
-A :ref:`VisibilityCalculator` object can be used to create and manage multiple ``VisibilitySegments`` when you want to
-evaluate
-whether all or any of a set of Segments are simultaneously true. For example, you may wish to know whether any Sensor
-on a Spacecraft can see a particular GroundStation. In that case, you can create a separate Segment for each Sensor,
-where the Sensor is the observer and the GroundStation is the target. Another example would be calculating a "chain" of
-contact. You may wish to know the times when a GroundStation can see a Spacecraft in a low-Earth orbit and that
-Spacecraft can also see another Spacecraft in a geosynchronous orbit. In that case, you can create a ``Segment`` for
-each
-leg of communication and instruct the :ref:`VisibilityCalculator` to compute the times when all the Segments are complete.
+When working with multiple ``Segments``, you may need to evaluate when all targets are visible by the observer. A
+:ref:`VisibilityCalculator` object manages multiple ``VisibilitySegments`` and evaluates visibility based on an
+``any`` or ``all`` condition. For example, you may wish to know whether any Sensor
+on a Spacecraft can see a particular GroundStation. You can create a separate Segment for each Sensor,
+with the Sensor as the observer and the GroundStation as the target. Another use for the :ref:`VisibilityCalculator`
+might be calculating a "chain" of contact. For example, you may wish to know the overlapping times when both a
+GroundStation can see a specific Spacecraft in a low-Earth orbit and while the same Spacecraft can see another
+Spacecraft in a geosynchronous orbit. In that case, you can create a ``Segment`` for
+each leg of communication and instruct the :ref:`VisibilityCalculator` to compute the times when all the Segments are
+complete.
 
 
 Setting up the Calculator
 ================================
-TODO where is it stated that the calculator requires this?
-
-The ``any`` or ``all`` requirement can be set using the `VisibilityCalculator.VisibilityRequirement
+To set up the calculator, you must first set the ``VisibilityRequirement`` using the `VisibilityCalculator.VisibilityRequirement
 <https://ai-solutions
-.com/_help_Files/visibilitycalculator_visibilityrequirement_nanosecond.htm>`_ property.
+.com/_help_Files/visibilitycalculator_visibilityrequirement_nanosecond.htm>`_ property, where 0 indicates **all**
+targets must be viewable, and 1 indicates **any** target can be viewable.
 
-TODO what is this code doing
+The following script creates a ``VisibilityCalculator`` using the ``all`` requirement.
 
 .. code-block:: c++
 
@@ -301,8 +309,8 @@ TODO what is this code doing
 
 Adding, Accessing, and Modifying Segments
 ==========================================
-Segments can be created and added to a :ref:`VisibilityCalculator` using the ``AddSegment()`` method as shown below. You
-can optionally specify a label for the ``Segment``.
+``Segments`` can be created and added to a :ref:`VisibilityCalculator` using the ``AddSegment()`` method as shown below.
+You can optionally specify a label for the ``Segment``.
 
 .. code-block:: c++
 
@@ -310,7 +318,7 @@ can optionally specify a label for the ``Segment``.
 
 
 Once a :ref:`VisibilitySegment` has been added to a :ref:`VisibilityCalculator`, you can access the :ref:`VisibilitySegment` and configure it
-as shown below. Additional configuration options for the :ref:`VisibilitySegment` are described above.
+as shown below. You may view additional configuration options for the :ref:`VisibilitySegment` in the previous section.
 
 
 .. code-block:: c++
@@ -322,7 +330,8 @@ as shown below. Additional configuration options for the :ref:`VisibilitySegment
 
 
 Individual ``VisibilitySegments`` can also be included or excluded from the :ref:`VisibilityCalculator` by setting the
-`VisibilitySegment.Active <https://ai-solutions.com/_help_Files/visibilitysegment_active_nanosecond.htm>`_ property.
+`VisibilitySegment.Active <https://ai-solutions.com/_help_Files/visibilitysegment_active_nanosecond.htm>`_ property
+value to 1 or 0, indicating activate or deactivate, respectively.
 
 .. code-block:: c++
 
@@ -337,7 +346,7 @@ also
 Output
 ============
 Once the :ref:`VisibilityCalculator` and all ``VisibilitySegments`` have been configured, the following methods are
-available for generating output. See above for a description of the output methods available for each individual
+available for generating output. See the previous section for output methods available for each individual
 :ref:`VisibilitySegment`.
 
 * `VisibilityCalculator.Visibility() <https://ai-solutions.com/_help_Files/visibilitycalculator_visibility_nanosecond
@@ -347,11 +356,17 @@ available for generating output. See above for a description of the output metho
   .com/_help_Files/interval_methods.htm>`_ - Evaluation of visibility
   across all active ``Segments``
 
+The following script first reports whether Spacecraft1 is visible at the specified Epoch. Then, visiblity is
+reported for each active Segment
+in the
+calculator.
+
 .. code-block:: c++
 
     While (Spacecraft1.ElapsedTime < TIMESPAN(1 days));
           // Report whether all segments are complete
           Report Spacecraft1.EpochText, Calculator.Visibility(Spacecraft1.Epoch);
+
           // Report whether each segment is complete
           For i = 0 to Calculator.Segments.Count-1;
                 Report Spacecraft1.EpochText, Calculator.Segments[i].Label, Calculator.Segments[i].Visibility(Spacecraft1.Epoch);
@@ -387,7 +402,63 @@ You may find the following adjacent pages useful when creating a ``VisibilitySeg
 
 Scripts
 ===================
-TODO add section with full script
+.. code-block:: c++
+
+    // Create a VisibilitySegment
+    VisibilitySegment Segment;
+    Segment.SetObserver(Spacecraft1);
+    Segment.SetTarget(GroundStation1);
+
+    // Set the target of a VisibilitySegment to the first point in a PointGroup
+    Segment.SetTarget(PointGroup1[0]);
+
+    // Set as sphere model
+    Segment.CelestialObjectTargetModel = 1;  // Sphere
+
+    // Set occulting bodies
+    Segment.AddOccultingBody(Earth, Moon);
+    Segment.RemoveOccultingBody(Jupiter);
+    Segment.CelestialObjectOccultationModel = 1;  // Ellipsoid
+
+    // Set occulting terrain
+    Terrain Terrain1;
+    Terrain Terrain2;
+    Segment.AddOccultingTerrain(Terrain1, Terrain2);
+    Segment.RemoveOccultingTerrain(Terrain2);
+    Segment.CelestialObjectOccultationModel = 1;  // Ellipsoid
+
+    // Set the refraction model
+    Segment.RefractionModelType = 2;  // Numeric - Multiple Chapman Profiles
+    Segment.RefractionFrequency = 2e9;
+
+    // Create the calculator with a visibility requirement of all
+    VisibilityCalculator Calculator;
+    Calculator.VisibilityRequirement = 0;  // All
+
+    // Add a segment with label
+    Calculator.AddSegment("sc-to-gs");
+
+    // Set the first Segment in the calculator to use Spacecraft1 observer and GroundStation1 target
+    Report Calculator.Segments.Count;
+    Report Calculator.Segments[0].Label;
+    Calculator.Segments[0].SetObserver(Spacecraft1);
+    Calculator.Segments[0].SetTarget(GroundStation1);
+
+    // Set the first segment as active
+    Calculator.Segments[0].Active = 1;  // Active (default)
+
+    // Return
+    While (Spacecraft1.ElapsedTime < TIMESPAN(1 days));
+          // Report whether all segments are complete
+          Report Spacecraft1.EpochText, Calculator.Visibility(Spacecraft1.Epoch);
+
+          // Report whether each segment is complete
+          For i = 0 to Calculator.Segments.Count-1;
+                Report Spacecraft1.EpochText, Calculator.Segments[i].Label, Calculator.Segments[i].Visibility(Spacecraft1.Epoch);
+          End;
+          Step Spacecraft1;
+    End;
+
 
 ----
 
