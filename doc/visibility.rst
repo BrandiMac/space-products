@@ -1,7 +1,7 @@
 #########################
 VisibilityCalculators
 #########################
-The :ref:`VisibilitySegment` object allows you to determine a target's visibility, which is defined as an
+The :ref:`VisibilitySegment` object allows you to determine a "visibility", which is defined as an
 observer's ability to view a target based on the conditions specified in your configuration for occulting bodies,
 occulting terrain, celestial object shape models, and refraction. The :ref:`VisibilityCalculator` object allows you
 to work with multiple ``VisibilitySegments`` at once.  You may use this calculator to determine whether ``any``
@@ -92,7 +92,7 @@ ellipsoid by setting the value equal to 0, 1, or 2, respectively. The follow scr
 Setting up Occulting Bodies
 ===============================
 In order to define the planets or moons that should be considered
-when determining a target's visibility, you may add or remove occulting bodies from the ``Segment``. You may model
+when determining target visibility, you may add or remove occulting bodies from the ``Segment``. You may model
 occulting bodies as spheres or ellipsoids by setting the `VisibilitySegment
 .CelestialObjectOccultationModel <https://ai-solutions
 .com/_help_Files/visibilitysegment_celestialobjectoccultationmodel_nanosecond.htm>`_ property to 0 or 1, respectively
@@ -260,7 +260,8 @@ return the exact times of the visibility events.
   .com/_help_Files/visibilitysegment_visibilitytimes_nanosecond.htm>`_ - Calculates the exact times for start of
   visibility and end of visibility.
 
-The following script reports the visibility of targets from Spacecraft1 at different times throughout the simulation.
+The following script reports the visibility of the target from observer (Spacecraft1) at different times throughout the
+simulation.
 
 .. code-block:: c++
 
@@ -285,8 +286,8 @@ When working with multiple ``Segments``, you may need to evaluate when all targe
 ``any`` or ``all`` condition. For example, you may wish to know whether any Sensor
 on a Spacecraft can see a particular GroundStation. You can create a separate Segment for each Sensor,
 with the Sensor as the observer and the GroundStation as the target. Another use for the :ref:`VisibilityCalculator`
-might be calculating a "chain" of contact. For example, you may wish to know the overlapping times when both a
-GroundStation can see a specific Spacecraft in a low-Earth orbit and while the same Spacecraft can see another
+is calculating a "chain" of contact. For example, you may wish to know the overlapping times when a
+GroundStation can see a specific Spacecraft in a low-Earth orbit while the same Spacecraft can see another
 Spacecraft in a geosynchronous orbit. In that case, you can create a ``Segment`` for
 each leg of communication and instruct the :ref:`VisibilityCalculator` to compute the times when all the Segments are
 complete.
@@ -331,7 +332,7 @@ as shown below. You may view additional configuration options for the :ref:`Visi
 
 Individual ``VisibilitySegments`` can also be included or excluded from the :ref:`VisibilityCalculator` by setting the
 `VisibilitySegment.Active <https://ai-solutions.com/_help_Files/visibilitysegment_active_nanosecond.htm>`_ property
-value to 1 or 0, indicating activate or deactivate, respectively.
+value to 1 or 0, indicating activate or inactive, respectively.
 
 .. code-block:: c++
 
@@ -356,7 +357,8 @@ available for generating output. See the previous section for output methods ava
   .com/_help_Files/interval_methods.htm>`_ - Evaluation of visibility
   across all active ``Segments``
 
-The following script first reports whether Spacecraft1 is visible at the specified Epoch. Then, visiblity is
+The following script first reports whether targets are visible by Spacecraft1 at the specified Epoch. Then,
+visibility is
 reported for each active Segment
 in the
 calculator.
@@ -371,6 +373,7 @@ calculator.
           For i = 0 to Calculator.Segments.Count-1;
                 Report Spacecraft1.EpochText, Calculator.Segments[i].Label, Calculator.Segments[i].Visibility(Spacecraft1.Epoch);
           End;
+
           Step Spacecraft1;
     End;
 
